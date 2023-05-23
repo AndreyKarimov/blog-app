@@ -145,3 +145,6 @@ postPublishNode.addEventListener("click", publishBtnHadler);
 
 postTitleNode.addEventListener("input", counterTitleLetters);
 postContentNode.addEventListener("input", counterContentLetters);
+
+// сделать отчистку длины полей
+// не выводится более 2х длинных постов
