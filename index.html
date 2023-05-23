@@ -16,12 +16,15 @@
                     <div class="post">
                         <h2>Новый пост</h2>
                         <div class="post__title">
+                            <span id="js-postTitleCounter" class="post__title-counter"></span>
                             <textarea 
                                 type="text" 
                                 id="js-postTitle" 
+                                class="postTitle"
                                 placeholder="Заголовок"></textarea>
                         </div>
                         <div class="post__content">
+                            <span id="js-postContentCounter" class="post__title-counter"></span>
                             <textarea 
                                 type="text"
                                 id="js-postContent"
@@ -30,7 +33,10 @@
                         <div class="post__publish-btn">
                             <button id="js-postPublish">Опубликовать</button>
                         </div>
-                        <div id="js-foolProof" class="post__foolProof"></div>
+                        <div class="fool-proof">
+                            <span id="js-foolProofTitle" class="fool-proof-item"></span>
+                            <span id="js-foolProofContent" class="fool-proof-item"></span>
+                        </div>
                     </div>
                     
                 </div>
@@ -43,7 +49,6 @@
             </div>
         </div>
     </main>
-
     <script src="js/index.js"></script>
 </body>
 </html>

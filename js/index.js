@@ -6,20 +6,29 @@ const postListNode = document.getElementById("js-postList");
 const postItemDateNode = document.getElementById("js-postItemDate");
 const postItemContentNode = document.getElementById("js-postItemContent");
 const foolProofNode = document.getElementById("js-foolProof");
+const postTitleCounter = document.getElementById("js-postTitleCounter");
+const postContentCounter = document.getElementById("js-postContentCounter");
+const foolProofTitle = document.getElementById("js-foolProofTitle");
+const foolProofContent = document.getElementById("js-foolProofContent");
 
 // --> constants
+const MAX_QUANTITY_OF_TITLE = 100;
+const MAX_QUANTITY_OF_CONTENT = 200;
+const RED_FONT_CLASS = "red";
+const DISPLAY_ON_CLASSNAME = "display-on";
+const MORE_200 = "Пост больше 200 символов";
+const MORE_100 = "Заголовок больше 100 символов";
 
 // --> variables
 const posts = [];
 
-// --> main programme
-postPublishNode.addEventListener("click", function () {
+// --> functions
+
+const publishBtnHadler = () => {
   const postFromUser = getPostFromUser();
   setPost(posts, postFromUser);
   renderPosts(posts);
-});
-
-// --> functions
+};
 
 //get value from field
 const getValue = (Node) => {
@@ -31,6 +40,12 @@ const getPostFromUser = (title, content, date) => {
   title = getValue(postTitleNode);
   content = getValue(postContentNode);
   date = new Date();
+  if (
+    MAX_QUANTITY_OF_TITLE - getLength(postTitleNode) < 0 ||
+    MAX_QUANTITY_OF_CONTENT - getLength(postContentNode) < 0
+  ) {
+    return;
+  }
   postTitleNode.value = "";
   postContentNode.value = "";
   return {
@@ -84,3 +99,49 @@ const getDate = (date) => {
 const set0 = (number) => {
   return String(number).padStart(2, "0");
 };
+
+// counter letters in postContentNode
+const counterContentLetters = () => {
+  postContentCounter.innerHTML = `Доступно символов: ${
+    MAX_QUANTITY_OF_CONTENT - getLength(postContentNode)
+  }`;
+  if (MAX_QUANTITY_OF_CONTENT - getLength(postContentNode) < 0) {
+    postContentCounter.classList.add(RED_FONT_CLASS);
+    foolProofContent.classList.add(RED_FONT_CLASS);
+  } else {
+    postContentCounter.classList.remove(RED_FONT_CLASS);
+    foolProofContent.classList.remove(RED_FONT_CLASS);
+  }
+};
+
+// counter letters in postTitleNode
+const counterTitleLetters = () => {
+  postTitleCounter.innerHTML = `Доступно символов: ${
+    MAX_QUANTITY_OF_TITLE - getLength(postTitleNode)
+  }`;
+  if (MAX_QUANTITY_OF_TITLE - getLength(postTitleNode) < 0) {
+    postTitleCounter.classList.add(RED_FONT_CLASS);
+    foolProofTitle.classList.add(RED_FONT_CLASS);
+  } else {
+    postTitleCounter.classList.remove(RED_FONT_CLASS);
+    foolProofTitle.classList.remove(RED_FONT_CLASS);
+  }
+};
+
+// get length from field
+const getLength = (field) => {
+  return field.value.length;
+};
+
+// init function
+const init = () => {
+  foolProofTitle.innerHTML = MORE_100;
+  foolProofContent.innerHTML = MORE_200;
+};
+
+// --> main programme
+init();
+postPublishNode.addEventListener("click", publishBtnHadler);
+
+postTitleNode.addEventListener("input", counterTitleLetters);
+postContentNode.addEventListener("input", counterContentLetters);

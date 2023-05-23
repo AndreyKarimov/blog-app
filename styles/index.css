@@ -33,9 +33,14 @@ textarea {
     
 }
 
+
+
 textarea:focus-visible {
     outline: unset;
 }
+
+
+
 
 
 button {
@@ -54,6 +59,16 @@ button {
 button:active {
     box-shadow:0 0 15px 4px rgba(0,0,0,0.2);
 }
+
+.counter {
+    position: relative;
+}
+
+.counter:before {
+    position: absolute;
+
+}
+
 
 .blog {
     max-width: 1100px;
@@ -90,12 +105,26 @@ button:active {
     row-gap: 30px;
 }
 
+
 .post__title, .post__content {
     width: 100%;
     font-size: 32px;
     line-height: 39px;
-
+    position: relative;
 }
+
+.post__title-counter {
+    position: absolute;
+    padding: 0 5px;
+    /* width: 80px; */
+    top: -16px;
+    left: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 16px;
+    color: grey;
+}
+
 
 .post__title {
     height: 60px;
@@ -134,10 +163,27 @@ button:active {
     font-size: 32px;
     line-height: 39px;
     text-align: left;
+    word-break: break-all;
 }
 
 .post-item__content {
     font-size: 25px;
     line-height: 30px;
     text-align: justify;
+    word-break: break-all;
+}
+
+.fool-proof {
+    font-size: 25px;
+    line-height: 30px;
+    text-align: left;
+}
+
+.fool-proof-item {
+    display: none;
+}
+
+.red {
+    color: red;
+    display: block;
 }
