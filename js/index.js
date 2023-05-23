@@ -54,7 +54,7 @@ const renderPosts = (posts) => {
 
     const postDate = document.createElement("div");
     postDate.classList.add("post-item__date");
-    postDate.innerText = post.date.toLocaleString();
+    postDate.innerText = getDate(post.date);
 
     const postTitle = document.createElement("div");
     postTitle.classList.add("post-item__title");
@@ -70,4 +70,17 @@ const renderPosts = (posts) => {
 
     postListNode.appendChild(postListItem);
   });
+};
+
+// get date in required format
+const getDate = (date) => {
+  let dateInFormat = `${set0(date.getDate())}.${set0(date.getMonth())}.${set0(
+    date.getFullYear()
+  )} ${set0(date.getHours())}:${set0(date.getMinutes())}`;
+  return dateInFormat;
+};
+
+//set 0 to string
+const set0 = (number) => {
+  return String(number).padStart(2, "0");
 };
