@@ -26,7 +26,7 @@ const posts = [];
 
 const publishBtnHadler = () => {
   const postFromUser = getPostFromUser();
-  setPost(posts, postFromUser);
+  isset(postFromUser) ? setPost(posts, postFromUser) : {};
   renderPosts(posts);
 };
 
@@ -36,7 +36,7 @@ const getValue = (Node) => {
 };
 
 //get post from user
-const getPostFromUser = (title, content, date) => {
+const getPostFromUser = () => {
   if (
     MAX_QUANTITY_OF_TITLE - getLength(postTitleNode) < 0 ||
     MAX_QUANTITY_OF_CONTENT - getLength(postContentNode) < 0 ||
@@ -45,15 +45,15 @@ const getPostFromUser = (title, content, date) => {
   ) {
     return;
   }
-  title = getValue(postTitleNode);
-  content = getValue(postContentNode);
-  date = new Date();
+  let title = getValue(postTitleNode);
+  let content = getValue(postContentNode);
+  let postDate = new Date();
   postTitleNode.value = "";
   postContentNode.value = "";
   return {
     title: title,
     content: content,
-    date: date,
+    postDate: postDate,
   };
 };
 
@@ -62,8 +62,16 @@ const setPost = (posts, post) => {
   posts.push(post);
 };
 
+// checking for the availability of the var
+const isset = (isVar) => {
+  return typeof isVar !== "undefined";
+};
+
 //render posts in post-list
 const renderPosts = (posts) => {
+  if (posts.length === 0) {
+    return;
+  }
   postListNode.innerHTML = "";
   posts.forEach((post) => {
     const postListItem = document.createElement("li");
@@ -71,7 +79,7 @@ const renderPosts = (posts) => {
 
     const postDate = document.createElement("div");
     postDate.classList.add("post-item__date");
-    postDate.innerText = getDate(post.date);
+    postDate.innerText = getDate(post.postDate);
 
     const postTitle = document.createElement("div");
     postTitle.classList.add("post-item__title");
@@ -151,6 +159,3 @@ postPublishNode.addEventListener("click", publishBtnHadler);
 
 postTitleNode.addEventListener("input", counterTitleLetters);
 postContentNode.addEventListener("input", counterContentLetters);
-
-// сделать отчистку длины полей
-// не выводится более 2х длинных постов
