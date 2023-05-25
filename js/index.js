@@ -37,15 +37,17 @@ const getValue = (Node) => {
 
 //get post from user
 const getPostFromUser = (title, content, date) => {
-  title = getValue(postTitleNode);
-  content = getValue(postContentNode);
-  date = new Date();
   if (
     MAX_QUANTITY_OF_TITLE - getLength(postTitleNode) < 0 ||
-    MAX_QUANTITY_OF_CONTENT - getLength(postContentNode) < 0
+    MAX_QUANTITY_OF_CONTENT - getLength(postContentNode) < 0 ||
+    getLength(postTitleNode) === 0 ||
+    getLength(postContentNode) === 0
   ) {
     return;
   }
+  title = getValue(postTitleNode);
+  content = getValue(postContentNode);
+  date = new Date();
   postTitleNode.value = "";
   postContentNode.value = "";
   return {
@@ -84,6 +86,10 @@ const renderPosts = (posts) => {
     postListItem.appendChild(postContent);
 
     postListNode.appendChild(postListItem);
+
+    //clearing the fields of the letter counter
+    postTitleCounter.innerHTML = "";
+    postContentCounter.innerHTML = "";
   });
 };
 
